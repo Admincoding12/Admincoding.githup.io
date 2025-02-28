@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giriş Yap</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+        .login-container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            text-align: center;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+        }
+        button {
+            flex: 1;
+            padding: 10px;
+            background: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #218838;
+        }
+        #actionButton {
+            display: none;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h2>Giriş Yap</h2>
+        <input type="text" id="username" placeholder="Kullanıcı Adı">
+        <input type="password" id="password" placeholder="Şifre">
+        <div class="button-container">
+            <button onclick="register()">Kayıt Ol</button>
+            <button onclick="login()">Giriş</button>
+        </div>
+        <p id="message" style="color: red;"></p>
+        <button id="actionButton" onclick="redirectToSite()">BASIN</button>
+    </div>
+
+    <script>
+        let users = {};
+
+        function register() {
+            var username = document.getElementById("username").value;
+            var password = document.getElementById("password").value;
+            var message = document.getElementById("message");
+
+            if (username && password) {
+                if (users[username]) {
+                    message.style.color = "red";
+                    message.innerText = "Bu kullanıcı adı zaten alınmış!";
+                } else {
+                    users[username] = password;
+                    message.style.color = "green";
+                    message.innerText = "Kayıt başarılı! Şimdi giriş yapabilirsiniz.";
+                }
+            } else {
+                message.style.color = "red";
+                message.innerText = "Lütfen kullanıcı adı ve şifre girin!";
+            }
+        }
+
+        function login() {
+            var username = document.getElementById("username").value;
+            var password = document.getElementById("password").value;
+            var message = document.getElementById("message");
+            var actionButton = document.getElementById("actionButton");
+            
+            if (users[username] && users[username] === password) {
+                message.style.color = "green";
+                message.innerText = "Başarıyla giriş yapıldı!";
+                actionButton.style.display = "block";
+            } else {
+                message.style.color = "red";
+                message.innerText = "Hatalı kullanıcı adı veya şifre!";
+                actionButton.style.display = "none";
+            }
+        }
+        
+        function redirectToSite() {
+            alert("Siteye giriliyor...");
+            window.location.href = "index.html";
+        }
+    </script>
+</body>
+</html>
